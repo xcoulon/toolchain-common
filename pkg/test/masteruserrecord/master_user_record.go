@@ -210,6 +210,7 @@ func TargetCluster(targetCluster string) MurModifier {
 // Account sets the first account on the MasterUserRecord
 func Account(cluster string, tier toolchainv1alpha1.NSTemplateTier, modifiers ...UaInMurModifier) MurModifier {
 	return func(mur *toolchainv1alpha1.MasterUserRecord) error {
+		mur.Spec.TierName = tier.Name
 		mur.Spec.UserAccounts = []toolchainv1alpha1.UserAccountEmbedded{}
 		return AdditionalAccount(cluster, tier, modifiers...)(mur)
 	}
